@@ -1,4 +1,3 @@
-# Flask Application Base
-This repository serves as a basic framework upon which more complicated Flask applications may be built.  I've included a basic uWSGI and Docker setup as well.
+# AlphaFold2Docker
 
-Users may simply modify the templates, modules, and so forth within the `Application/` directory, and then build/deploy a Docker container in a fairly straightforward way.# AlphaFold2Docker
+This is a very simple setup.  It's ColabFold, topped off with a Flask WebUI, and stuffed into a Docker container.
