@@ -1,0 +1,170 @@
+<!doctype html>
+<title>Local AlphaFold2</title>
+{% include 'styles/main_page_style.html' %}
+<div style="text-align: center;">
+    <img width="320" src={{ url_for('static', filename="WalkerResearchPeptide.gif") }}
+    alt="Walker Research Peptide Logo" 
+    class="center" 
+    width="500px"> 
+  </div>
+
+
+<p>This is a simple service designed to allow the use of AlphaFold2 with straightforward option selections.  It is based on <a href="https://github.com/sokrypton/ColabFold">ColabFold v1.5.5</a><br>
+<i><a href="https://doi.org/10.1038/s41592-022-01488-1">Cite their paper!</a></i><br>
+</p>
+
+<form method=post enctype=multipart/form-data>
+<fieldset style="border-width:3px; border-style:solid; border-color:#78E2A0; padding: 1em;">
+<legend>AlphaFold2 Job Settings</legend>
+<div>
+<input type="text" id="SEQUENCE_1" name="SEQUENCE_1" value="" size="10" style="width:600px">
+<label for="SEQUENCE_1" style="width:200px">Protein Sequence 1</label>
+</div>
+<br>
+
+<div>
+<input type="text" id="SEQUENCE_2" name="SEQUENCE_2" value="" size="10" style="width:600px">
+<label for="SEQUENCE_2" style="width:200px">Protein Sequence 2</label>
+</div>
+<br>
+
+<div>
+<select id="MSA_MODE" name="MSA_MODE"  style="width:200px">
+<option value="mmseqs2_uniref_env" selected>MMseqs2 Uniref Env</option>
+<option value="mmseqs2_uniref">MMseqs2 Uniref</option>
+<option value="single_sequence">Single Sequence</option>
+</select> 
+<label for="MSA_MODE">MSA Mode</label>
+</div>
+<br>
+
+<div>
+<select id="PAIR_MODE" name="PAIR_MODE"  style="width:200px">
+<option value="unpaired_paired" selected>Unpaired/Paired</option>
+<option value="paired">Paired</option>
+<option value="unpaired">Unpaired</option>
+</select> 
+<label for="PAIR_MODE">Pair Mode</label>
+</div>
+<br>
+
+<div>
+<select id="MODEL_TYPE" name="MODEL_TYPE"  style="width:200px">
+<option value="auto" selected>Automatic (recommended)</option>
+<option value="alphafold2_ptm">AlphaFold2 PTM</option>
+<option value="alphafold2_multimer_v1">AlphaFold2 Multimer v1</option>
+<option value="alphafold2_multimer_v2">AlphaFold2 Multimer v2</option>
+<option value="alphafold2_multimer_v3">AlphaFold2 Multimer v3</option>
+<option value="deepfold_v1">DeepFold v1</option>
+</select> 
+<label for="MODEL_TYPE">Model Type</label>
+</div>
+<br>
+
+<div>
+<select id="NUM_RECYCLES" name="NUM_RECYCLES"  style="width:200px">
+<option value="auto" selected>Automatic (recommended)</option>
+<option value="0">0</option>
+<option value="1">1</option>
+<option value="3">3</option>
+<option value="6">6</option>
+<option value="12">12</option>
+<option value="24">24</option>
+<option value="48">48</option>
+</select> 
+<label for="NUM_RECYCLES">Number of Recycles</label>
+</div>
+<br>
+
+<div>
+<select id="RECYCLE_EARLY_STOP_TOLERANCE" name="RECYCLE_EARLY_STOP_TOLERANCE"  style="width:200px">
+<option value="auto" selected>Automatic (recommended)</option>
+<option value="0.0">0.0</option>
+<option value="0.5">0.5</option>
+<option value="1.0">1.0</option>
+</select> 
+<label for="RECYCLE_EARLY_STOP_TOLERANCE">Recycle Early Stop Tolerance</label>
+</div>
+<br>
+
+<div>
+<select id="RELAX_MAX_ITERATIONS" name="RELAX_MAX_ITERATIONS"  style="width:200px">
+<option value="200"selected >200</option>
+<option value="2000">2000</option>
+<option value="0">Unlimited</option>
+</select> 
+<label for="RELAX_MAX_ITERATIONS">Maximum Relaxation Iterations</label>
+</div>
+<br>
+
+<div>
+<legend>Pairing Strategy</legend>
+<div>
+<input type="radio" id="greedy" name="PAIRING_STRATEGY" value="greedy" checked>
+<label for="greedy">Greedy: pair any taxonomically matching subsets</label>
+</div>
+<div>
+<input type="radio" id="complete" name="PAIRING_STRATEGY" value="complete">
+<label for="complete">Complete: all sequences must match in one line</label>
+</div>
+</div>
+<br>
+
+<div>
+<select id="MAX_MSA" name="MAX_MSA"  style="width:200px">
+<option value="auto" selected>Automatic (recommended)</option>
+<option value="512:1024">512:1024</option>
+<option value="256:512">256:512</option>
+<option value="64:128">64:128</option>
+<option value="32:64">32:64</option>
+<option value="16:32">16:32</option>
+</select> 
+<label for="MAX_MSA">Maximum MSA</label>
+</div>
+<br>
+
+<div>
+<select id="NUM_SEEDS" name="NUM_SEEDS"  style="width:200px">
+<option value="1" selected>1 (recommended)</option>
+<option value="2">2</option>
+<option value="4">4</option>
+<option value="8">8</option>
+<option value="16">16</option>
+</select> 
+<label for="NUM_SEEDS">Number of Seeds</label>
+</div>
+<br>
+
+<div>
+<input type="checkbox" id="USE_DROPOUT" name="USE_DROPOUT">
+<label for="USE_DROPOUT">Enable Dropouts</label>
+</div>
+<br>
+
+<div>
+<input type="checkbox" id="SAVE_ALL" name="SAVE_ALL">
+<label for="SAVE_ALL">Save All</label>
+</div>
+<br>
+
+<div>
+<input type="checkbox" id="SAVE_RECYCLES" name="SAVE_RECYCLES">
+<label for="SAVE_RECYCLES">Save Recycles</label>
+</div>
+<br>
+
+<div>
+<input type="checkbox" id="DISPLAY_IMAGES" name="DISPLAY_IMAGES">
+<label for="DISPLAY_IMAGES">Display Images</label>
+</div>
+<br>
+
+<div>
+<input type="number" id="DPI" name="DPI" value=300 required size="10" style="width:100px">
+<label for="DPI" style="width:200px">Image Resolution</label>
+</div>
+<br>
+    
+<!-- SUBMIT JOB BUTTON -->
+<input type="submit" value="Run AlphaFold2">
+</form>

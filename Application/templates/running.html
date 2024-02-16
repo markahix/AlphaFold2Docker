@@ -1,0 +1,13 @@
+<!doctype html>
+<title>Processing...</title>
+{% include 'styles/main_page_style.html' %}
+<body>
+    <div>
+        <legend>AlphaFold2 Job Process</legend>
+        <iframe name="AlphaFold2 Job Process"
+                frameborder="3" 
+                style='background: transparent; width: 100%; height: 100%; border-color:#03e7d4;color:#03e7d4' 
+                src="{{ url_for('console_output')}}"
+                scrolling=”yes”
+                height="100%"></iframe>
+</div>
